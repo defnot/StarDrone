@@ -1,0 +1,39 @@
+<ion-view title="Flight plan" id="page3">
+<ion-content padding="true" class="has-header">
+  <div>
+    <div ng-repeat="base in bases track by $index" flight-plan top="{{base.top}}" bottom="{{base.bottom}}"></div>
+  </div>
+  <button class="button icon-left ion-plus-round button-large button-balanced" id="baseButton" ng-click="modal.show()">New Base</button>
+</ion-content>
+</ion-view>
+
+
+<script id="modal.html" type="text/ng-template">
+      <ion-modal-view>
+        <ion-header-bar class="bar bar-header bar-calm">
+          <h1 class="title">New Base</h1>
+          <button class="button button-clear button-assertive" ng-click="modal.hide()">Cancel</button>
+        </ion-header-bar>
+        <ion-content class="padding">
+          <div class="list">
+            <label class="item item-input">
+              <span class="input-label">Top(in meters)</span>
+              <input ng-model="newBase.top" type="text">
+            </label>
+            <label class="item item-input">
+              <span class="input-label">Bottom(in meters)</span>
+              <input ng-model="newBase.bottom" type="text">
+            </label>
+            <label class="item item-input">
+              <span class="input-label">Left(in meters)</span>
+              <input ng-model="newBase.left" type="text">
+            </label>
+            <label class="item item-input">
+              <span class="input-label">Right(in meters)</span>
+              <input ng-model="newBase.right" type="text">
+            </label>
+            <button class="button button-full button-assertive" ng-click="createBase(newBase)">Create</button>
+          </div>
+        </ion-content>
+      </ion-modal-view>
+    </script>
