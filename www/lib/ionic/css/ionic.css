@@ -830,8 +830,9 @@
 
   .test {
     position:absolute;
-    top : 437px;
-    left:189px;
+    width: 800px;
+    height: 800px;
+
   }
 
 .ion-alert-circled:before {
