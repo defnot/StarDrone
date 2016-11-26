@@ -828,6 +828,12 @@
     left:340px;
   }
 
+  .test {
+    position:absolute;
+    top : 437px;
+    left:189px;
+  }
+
 .ion-alert-circled:before {
   content: ""; }
 
