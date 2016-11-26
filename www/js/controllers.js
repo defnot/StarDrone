@@ -15,7 +15,7 @@ angular.module('app.controllers', [])
   // TIP: Access Route Parameters for your page via $stateParams.parameterName
   function($scope, $stateParams, $ionicModal) {
     var count = {
-      top: '400px',
+      top: '20px',
       bottom: '20px',
       left: '20px',
       right: '20px'
@@ -32,6 +32,7 @@ angular.module('app.controllers', [])
     $scope.createBase = createBase;
 
     function createBase(newBase) {
+      newBase.top = parseInt(newBase.top);
       var style = newBase;
       $scope.bases.push(style);
 

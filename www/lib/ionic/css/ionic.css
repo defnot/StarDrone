@@ -816,8 +816,16 @@
     margin-left:80%;
   }
 
+  .circle {
+    border-radius: 60%;
+    color: red;
+    width: 20%;
+  }
+
   .imgAbsolute{
     position: absolute;
+    top:550px;
+    left:340px;
   }
 
 .ion-alert-circled:before {

@@ -32,15 +32,14 @@
   /* @ngInject */
   function Controller() {
     var vm = this;
-    console.log(vm);
-
+    console.log(vm.top);
     activate();
 
     function activate() {
-      vm.topA = vm.top;
-      vm.bottomA = vm.bottom;
-      vm.leftA = vm.left;
-      vm.rightA = vm.right;
+      vm.topA = vm.top + 'px';
+      vm.bottomA = vm.bottom + 'px';
+      vm.leftA = vm.left + 'px';
+      vm.rightA = vm.right + 'px';
     }
   }
 })();
