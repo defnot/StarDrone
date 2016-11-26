@@ -34,6 +34,17 @@
     var vm = this;
     console.log(vm.top);
     activate();
+    /*
+        top:220
+                    --right
+        left:590
+
+        top:175			 --top
+
+        top:220
+                    --left
+        left:100
+    */
 
     function activate() {
       vm.topA = vm.top + 'px';

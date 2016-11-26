@@ -4,8 +4,12 @@
     <div ng-repeat="base in bases track by $index" flight-plan top="{{base.top}}" bottom="{{base.bottom}}" left="{{base.left}}" right="{{base.right}}"></div>
   </div>
 <svg class="test" >
+  <path class="key-anim1" fill="none" stroke-width="5px" stroke="rgba(200,10,10,0.5)" d="M620 200, 220 630" />
+  <path class="key-anim2" fill="none" stroke-width="5px" stroke="rgba(200,10,10,0.5)" d="M197 630, 152 259" />
+  <path class="key-anim3" fill="none" stroke-width="5px" stroke="rgba(200,10,10,0.5)"   />
   <circle r="10" cy="529" cx="380" fill="#f33" />
-  <circle r="10" cy="197" cx="630" fill="#f33" />
+  <circle r="10"cy="197" cx="630" fill="#f33" />
+  <circle r="10" cy="152" cx="259" fill="#f33" />
 </svg>
 
   <button class="button icon-left ion-plus-round button-large button-balanced" id="baseButton" ng-click="modal.show()">New Base</button>

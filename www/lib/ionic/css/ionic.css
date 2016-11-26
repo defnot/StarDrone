@@ -816,6 +816,38 @@
     margin-left:80%;
   }
 
+  .key-anim1 {
+  -webkit-animation: Drawpath 10s linear forwards;
+  animation: Drawpath 10s linear forwards;
+  stroke-dasharray: 0, 100;
+}
+.key-anim2 {
+  -webkit-animation: Drawpath 1s linear 1s forwards;
+  animation: Drawpath 1s linear 1s forwards;
+  stroke-dasharray: 0, 100;
+}
+.key-anim3 {
+  -webkit-animation: Drawpath 1s linear 2s forwards;
+  animation: Drawpath 1s linear 2s forwards;
+  stroke-dasharray: 0, 100;
+}
+@-webkit-keyframes Drawpath {
+  from {
+    stroke-dasharray: 0, 100;
+  }
+  to {
+    stroke-dasharray: 100, 100;
+  }
+}
+@keyframes Drawpath {
+  from {
+    stroke-dasharray: 0, 100;
+  }
+  to {
+    stroke-dasharray: 100, 100;
+  }
+}
+
   .circle {
     border-radius: 60%;
     color: red;
@@ -827,6 +859,7 @@
     top:550px;
     left:340px;
   }
+
 
   .test {
     position:absolute;
