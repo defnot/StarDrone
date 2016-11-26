@@ -1,10 +1,12 @@
 <ion-view title="Flight plan" id="page3">
 <ion-content padding="true" class="has-header">
   <div>
-    <div ng-repeat="base in bases track by $index" flight-plan top="{{base.top}}" bottom="{{base.bottom}}"></div>
+    <div ng-repeat="base in bases track by $index" flight-plan top="{{base.top}}" bottom="{{base.bottom}}" left="{{base.left}}" right="{{base.right}}"></div>
   </div>
   <button class="button icon-left ion-plus-round button-large button-balanced" id="baseButton" ng-click="modal.show()">New Base</button>
 </ion-content>
+
+
 </ion-view>
 
 

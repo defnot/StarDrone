@@ -9,10 +9,12 @@
   function flightPlan() {
     var directive = {
       restrict: 'A',
-      template: '<img src="img/tower-pic-sm.png" class="imgAbsolute" style="top:{{vm.topA}};bottom:{{vm.bottomA}}" />',
+      template: '<img src="img/tower-pic-sm.png" class="imgAbsolute" style="top:{{vm.topA}};bottom:{{vm.bottomA}};left:{{vm.leftA}};right:{{vm.rightA}}" />',
       scope: {
         top: '@top',
-        bottom: '@bottom'
+        bottom: '@bottom',
+        left: '@left',
+        right: '@right'
       },
       link: link,
       controller: Controller,
@@ -37,6 +39,8 @@
     function activate() {
       vm.topA = vm.top;
       vm.bottomA = vm.bottom;
+      vm.leftA = vm.left;
+      vm.rightA = vm.right;
     }
   }
 })();
