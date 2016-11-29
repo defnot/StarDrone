@@ -813,38 +813,35 @@
   }
 
   #baseButton {
-    margin-left:80%;
+    position: absolute;
+    right:50px;
   }
 
-  .key-anim1 {
-  -webkit-animation: Drawpath 10s linear forwards;
-  animation: Drawpath 10s linear forwards;
-  stroke-dasharray: 0, 100;
-}
+  #planButton {
+    position: absolute;
+    right:50px;
+    top:90px;
+  }
+
+.key-anim1 {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: dash 5s linear forwards;;
+  }
 .key-anim2 {
-  -webkit-animation: Drawpath 1s linear 1s forwards;
-  animation: Drawpath 1s linear 1s forwards;
-  stroke-dasharray: 0, 100;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: dash 5s linear forwards;
 }
 .key-anim3 {
   -webkit-animation: Drawpath 1s linear 2s forwards;
   animation: Drawpath 1s linear 2s forwards;
-  stroke-dasharray: 0, 100;
+  stroke-dasharray: 300;
 }
-@-webkit-keyframes Drawpath {
-  from {
-    stroke-dasharray: 0, 100;
-  }
+
+@keyframes dash  {
   to {
-    stroke-dasharray: 100, 100;
-  }
-}
-@keyframes Drawpath {
-  from {
-    stroke-dasharray: 0, 100;
-  }
-  to {
-    stroke-dasharray: 100, 100;
+    stroke-dashoffset: 0;
   }
 }
 
@@ -857,16 +854,15 @@
   .imgAbsolute{
     position: absolute;
     top:550px;
-    left:340px;
+    left:480px;
   }
-
 
   .test {
-    position:absolute;
-    width: 800px;
-    height: 800px;
 
   }
+
+
+
 
 .ion-alert-circled:before {
   content: ""; }
