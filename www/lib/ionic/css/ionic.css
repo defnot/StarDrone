@@ -826,7 +826,7 @@
 .key-anim1 {
     stroke-dasharray: 1000;
     stroke-dashoffset: 1000;
-    animation: dash 5s linear forwards;;
+    animation: dash 6s linear forwards;;
   }
 .key-anim2 {
   stroke-dasharray: 1000;

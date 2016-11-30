@@ -20,25 +20,53 @@ angular.module('app.controllers', [])
       left: '20px',
       right: '20px'
     };
+    var pointCount = {
+
+    }
     $scope.bases = [];
+    $scope.points = [];
     $scope.bases.push(count);
+    $scope.points.push(pointCount);
+
     $ionicModal.fromTemplateUrl('modal.html', {
+      id: '1',
       scope: $scope,
       animation: 'slide-in-up'
     }).then(function(modal) {
-      $scope.modal = modal;
+      $scope.Modal1 = modal;
     });
 
+    $ionicModal.fromTemplateUrl('modalPoint.html', {
+      id: '2',
+      scope: $scope,
+      animation: 'slide-in-up'
+    }).then(function(modal) {
+      $scope.Modal2 = modal;
+    });
+
+    $scope.openModal = function(index) {
+      if (index == 1) $scope.Modal1.show();
+      else $scope.Modal2.show();
+    };
+
+    $scope.closeModal = function(index) {
+      if (index == 1) $scope.Modal1.hide();
+      else $scope.Modal2.hide();
+    };
+
     $scope.createBase = createBase;
+    $scope.createLocationPoint = createLocationPoint;
 
     function createBase(newBase) {
       newBase.top = parseInt(newBase.top);
       var style = newBase;
       $scope.bases.push(style);
-
     }
 
+    function createLocationPoint(newLocation) {
+      var style = newLocation;
 
+    }
   }
 ])
 

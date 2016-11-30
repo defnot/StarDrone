@@ -22,8 +22,8 @@
   </circle>
 </svg>
 
-  <button class="button icon-left ion-plus-round button-large button-balanced" id="baseButton" ng-click="modal.show()">New Base</button>
-  <button class="button icon-left ion-plus-round button-large button-royal" id="planButton" ng-click="modal.show()">Create Flight Plan</button>
+  <button class="button icon-left ion-plus-round button-large button-balanced" id="baseButton" ng-click="openModal(1)">New Base</button>
+  <button class="button icon-left ion-plus-round button-large button-royal" id="planButton" ng-click="openModal(2)">Create Flight Plan</button>
 </ion-content>
 
 </ion-view>
@@ -32,7 +32,7 @@
       <ion-modal-view>
         <ion-header-bar class="bar bar-header bar-calm">
           <h1 class="title">New Base</h1>
-          <button class="button button-clear button-assertive" ng-click="modal.hide()">Cancel</button>
+          <button class="button button-clear button-assertive" ng-click="closeModal(1)">Cancel</button>
         </ion-header-bar>
         <ion-content class="padding">
           <div class="list" style="top:40px;">
@@ -51,3 +51,27 @@
         </ion-content>
       </ion-modal-view>
     </script>
+
+    <script id="modalPoint.html" type="text/ng-template">
+          <ion-modal-view>
+            <ion-header-bar class="bar bar-header bar-calm">
+              <h1 class="title">New Flight plan location point</h1>
+              <button class="button button-clear button-assertive" ng-click="closeModal(2)">Cancel</button>
+            </ion-header-bar>
+            <ion-content class="padding">
+              <div class="list" style="top:40px;">
+                <label class="item item-input">
+                  <span class="input-label ion-ios-location">      Y-axis coordinates: </span>
+                  <input ng-model="newLocationPoint.top" type="text">
+                </label>
+
+                <label class="item item-input" style="top:60px;">
+                  <span class="input-label ion-ios-location">      X-axis coordinates: </span>
+                  <input ng-model="newLocationPoint.left" type="text">
+                </label>
+
+                <button class="button button-full button-assertive" ng-click="createLocationPoint(newLocationPoint)" style="top: 150px;">Create</button>
+              </div>
+            </ion-content>
+          </ion-modal-view>
+        </script>
