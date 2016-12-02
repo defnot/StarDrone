@@ -3,7 +3,9 @@
 
   angular
     .module('app.directives', [])
-    .directive('flightPlan', flightPlan);
+    .directive('flightPlan', flightPlan)
+    .directive('pointLocation', pointLocation)
+    .directive('createPath', createPath);
 
   /* @ngInject */
   function flightPlan() {
@@ -27,12 +29,57 @@
     function link(scope, el, attr) {}
   }
 
-  Controller.$inject = [];
+  function pointLocation() {
+    var directive = {
+      restrict: 'A',
+      template: '<circle r="10" cy="{{vmp.xcorA}}" cx="{{vmp.ycorA}}" fill="#f33" />',
+      scope: {
+        xcor: '@xcor',
+        ycor: '@ycor',
+      },
+      link: link,
+      controller: PointController,
+      controllerAs: 'vmp',
+      bindToController: true
+    };
 
+    return directive;
+
+    function link(scope, el, attr) {
+      el.attr('')
+    }
+  }
+
+  function createPath() {
+    var directive = {
+      restrict: 'A',
+      template: '<path class="key-anim1" stroke-width="5" fill="none" stroke-width="5px" stroke="rgba(200,10,10,0.5)" d="M{{pmp.xfirstA}} {{pmp.yfirstA}},{{pmp.ysecondA}} {{pmp.xsecondA}}" id="theMotionPath" />',
+      scope: {
+        xfirst: '@xfirst',
+        yfirst: '@yfirst',
+        xsecond: '@xsecond',
+        ysecond: '@ysecond',
+      },
+      link: link,
+      controller: PathController,
+      controllerAs: 'pmp',
+      bindToController: true
+    };
+
+    return directive;
+
+    function link(scope, el, attr) {
+      el.attr('')
+    }
+  }
+
+  Controller.$inject = [];
+  PointController.$inject = [];
+  PathController.$inject = [];
   /* @ngInject */
   function Controller() {
     var vm = this;
-    console.log(vm.top);
+
     activate();
     /*
         top:220
@@ -51,6 +98,28 @@
       vm.bottomA = vm.bottom + 'px';
       vm.leftA = vm.left + 'px';
       vm.rightA = vm.right + 'px';
+    }
+  }
+
+  function PointController() {
+    var vmp = this;
+    activate();
+
+    function activate() {
+      vmp.xcorA = vmp.xcor;
+      vmp.ycorA = vmp.ycor;
+    }
+  }
+
+  function PathController() {
+    var pmp = this;
+    activate();
+
+    function activate() {
+      pmp.xfirstA = pmp.xfirst;
+      pmp.yfirstA = pmp.yfirst;
+      pmp.xsecondA = pmp.xsecond;
+      pmp.ysecondA = pmp.ysecond;
     }
   }
 })();

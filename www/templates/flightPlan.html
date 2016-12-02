@@ -10,16 +10,11 @@
   <circle r="10" cy="529" cx="380" fill="#f33" />
   <circle r="10"cy="197" cx="630" fill="#f33" />
   <circle r="10" cy="152" cx="259" fill="#f33" /> -->
-  <path class="key-anim1" stroke-width="5" fill="none" stroke-width="5px" stroke="rgba(200,10,10,0.5)" d="M522 522,550 50" id="theMotionPath" />
     <circle r="10" cy="522" cx="522" fill="#f33" />
-    <circle r="10" cy="50" cx="550" fill="#f33" />
-    <circle cx="" cy="" r="5" fill="red">
+    <g ng-repeat = "path in paths track by $index" create-path xfirst="{{path.xfirst}}" yfirst="{{path.yfirst}}"
+       xsecond="{{path.xsecond}}" ysecond="{{path.ysecond}}"> </g>
+    <g ng-repeat="point in points track by $index" point-location xcor="{{point.xcor}}" ycor="{{point.ycor}}" ></g>
 
-    <!-- Define the motion path animation -->
-    <animateMotion dur="6s" repeatCount="indefinite">
-      <mpath xlink:href="#theMotionPath"/>
-    </animateMotion>
-  </circle>
 </svg>
 
   <button class="button icon-left ion-plus-round button-large button-balanced" id="baseButton" ng-click="openModal(1)">New Base</button>
@@ -54,7 +49,7 @@
 
     <script id="modalPoint.html" type="text/ng-template">
           <ion-modal-view>
-            <ion-header-bar class="bar bar-header bar-calm">
+            <ion-header-bar class="bar bar-header bar-energized">
               <h1 class="title">New Flight plan location point</h1>
               <button class="button button-clear button-assertive" ng-click="closeModal(2)">Cancel</button>
             </ion-header-bar>
@@ -62,12 +57,12 @@
               <div class="list" style="top:40px;">
                 <label class="item item-input">
                   <span class="input-label ion-ios-location">      Y-axis coordinates: </span>
-                  <input ng-model="newLocationPoint.top" type="text">
+                  <input ng-model="newLocationPoint.xcor" type="text">
                 </label>
 
                 <label class="item item-input" style="top:60px;">
                   <span class="input-label ion-ios-location">      X-axis coordinates: </span>
-                  <input ng-model="newLocationPoint.left" type="text">
+                  <input ng-model="newLocationPoint.ycor" type="text">
                 </label>
 
                 <button class="button button-full button-assertive" ng-click="createLocationPoint(newLocationPoint)" style="top: 150px;">Create</button>

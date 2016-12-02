@@ -20,13 +20,12 @@ angular.module('app.controllers', [])
       left: '20px',
       right: '20px'
     };
-    var pointCount = {
-
-    }
+    $scope.keepPoints = [];
+    $scope.paths = [];
     $scope.bases = [];
     $scope.points = [];
+
     $scope.bases.push(count);
-    $scope.points.push(pointCount);
 
     $ionicModal.fromTemplateUrl('modal.html', {
       id: '1',
@@ -62,9 +61,43 @@ angular.module('app.controllers', [])
       var style = newBase;
       $scope.bases.push(style);
     }
+    $scope.prevxcorfirst = 0;
+    $scope.prevycorfirst = 0;
 
     function createLocationPoint(newLocation) {
+      console.log($scope.prevxcorfirst);
+      console.log($scope.prevycorfirst);
       var style = newLocation;
+      $scope.points.push(style);
+      var inject = {};
+      if ($scope.points.length == 1) {
+        inject.xfirst = 522;
+        inject.yfirst = 522;
+        inject.xsecond = $scope.points[0].xcor;
+        inject.ysecond = $scope.points[0].ycor;
+      } else if ($scope.points.length > 1) {
+
+        inject.xfirst = $scope.prevycorfirst;
+        inject.yfirst = $scope.prevxcorfirst;
+
+
+        /*
+           inject.xfirst = 550;
+           inject.yfirst = 50;
+           inject.xsecond = 50;
+           inject.ysecond = 590;
+           */
+        inject.xsecond = newLocation.xcor;
+        inject.ysecond = newLocation.ycor;
+        console.log(inject);
+      }
+      $scope.paths.push(inject);
+
+      $scope.prevxcorfirst = newLocation.xcor;
+      console.log($scope.prevxcorfirst);
+      $scope.prevycorfirst = newLocation.ycor;
+      console.log($scope.prevycorfirst);
+
 
     }
   }
