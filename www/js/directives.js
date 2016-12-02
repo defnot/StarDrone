@@ -5,18 +5,19 @@
     .module('app.directives', [])
     .directive('flightPlan', flightPlan)
     .directive('pointLocation', pointLocation)
-    .directive('createPath', createPath);
+    .directive('createPath', createPath)
+    .directive('createMotion', createMotion);
 
   /* @ngInject */
   function flightPlan() {
     var directive = {
       restrict: 'A',
-      template: '<img src="img/tower-pic-sm.png" class="imgAbsolute" style="top:{{vm.topA}};bottom:{{vm.bottomA}};left:{{vm.leftA}};right:{{vm.rightA}}" />',
+      template: '<img src="img/tower-pic-sm.png" class="imgAbsolute" style="top:{{vm.topA}};bottom:{{vm.bottomA}};left:{{vm.leftA}};right:{{vm.rightA}}"; />',
       scope: {
         top: '@top',
         bottom: '@bottom',
         left: '@left',
-        right: '@right'
+        right: '@right',
       },
       link: link,
       controller: Controller,
@@ -53,12 +54,13 @@
   function createPath() {
     var directive = {
       restrict: 'A',
-      template: '<path class="key-anim1" stroke-width="5" fill="none" stroke-width="5px" stroke="rgba(200,10,10,0.5)" d="M{{pmp.xfirstA}} {{pmp.yfirstA}},{{pmp.ysecondA}} {{pmp.xsecondA}}" id="theMotionPath" />',
+      template: '<path class="key-anim1" stroke-width="5" fill="none" stroke-width="5px" stroke="rgba(200,10,10,0.5)" d="M{{pmp.xfirstA}} {{pmp.yfirstA}},{{pmp.ysecondA}} {{pmp.xsecondA}}" id="{{pmp.motionIdA}}" />',
       scope: {
         xfirst: '@xfirst',
         yfirst: '@yfirst',
         xsecond: '@xsecond',
         ysecond: '@ysecond',
+        motionId: '@motionId',
       },
       link: link,
       controller: PathController,
@@ -73,9 +75,28 @@
     }
   }
 
+  function createMotion() {
+    var directive = {
+      restrict: 'A',
+      template: '<circle cx="" cy="" r="5" fill="red"><animateMotion dur="6s" repeatCount="indefinite"><mpath xlink:href="#{{mcm.motionIdA}}"/></animateMotion>',
+      scope: {
+        motionId: '@motionId',
+      },
+      link: link,
+      controller: MotionController,
+      controllerAs: 'mcm',
+      bindToController: true
+    };
+
+    return directive;
+
+    function link(scope, el, attr) {}
+  }
+
   Controller.$inject = [];
   PointController.$inject = [];
   PathController.$inject = [];
+  MotionController.$inject = [];
   /* @ngInject */
   function Controller() {
     var vm = this;
@@ -120,6 +141,16 @@
       pmp.yfirstA = pmp.yfirst;
       pmp.xsecondA = pmp.xsecond;
       pmp.ysecondA = pmp.ysecond;
+      vm.motionIdA = vm.motionId;
+    }
+  }
+
+  function MotionController() {
+    var mcm = this;
+    activate();
+
+    function activate() {
+      mcm.motionIdA = mcm.motionId;
     }
   }
 })();
