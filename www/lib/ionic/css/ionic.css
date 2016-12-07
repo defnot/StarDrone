@@ -822,6 +822,12 @@
     top:90px;
   }
 
+  #startButton {
+    position: absolute;
+    right:50px;
+    top:170px;
+  }
+
 .key-anim1 {
     stroke-dasharray: 1000;
     stroke-dashoffset: 1000;

@@ -54,7 +54,7 @@
   function createPath() {
     var directive = {
       restrict: 'A',
-      template: '<path class="key-anim1" stroke-width="5" fill="none" stroke-width="5px" stroke="rgba(200,10,10,0.5)" d="M{{pmp.xfirstA}} {{pmp.yfirstA}},{{pmp.ysecondA}} {{pmp.xsecondA}}" id="{{pmp.motionIdA}}" />',
+      template: '<path class="key-anim1" stroke-width="5" fill="none" stroke-width="5px" stroke="rgba(200,10,10,0.5)" d="M{{pmp.xfirstA}} {{pmp.yfirstA}},{{pmp.ysecondA}} {{pmp.xsecondA}}" id="{{pmp.motionIdA}}" /><circle cx="" cy="" r="5" fill="red"><animateMotion dur="6s" repeatCount="indefinite"><mpath xlink:href="{{pmp.trustCon(pmp.motionIdA)}}"/></animateMotion></circle>',
       scope: {
         xfirst: '@xfirst',
         yfirst: '@yfirst',
@@ -78,7 +78,7 @@
   function createMotion() {
     var directive = {
       restrict: 'A',
-      template: '<circle cx="" cy="" r="5" fill="red"><animateMotion dur="6s" repeatCount="indefinite"><mpath xlink:href="#{{mcm.motionIdA}}"/></animateMotion>',
+      template: '<circle cx="" cy="" r="5" fill="red"><animateMotion dur="6s" repeatCount="indefinite"><mpath xlink:href="{{mcm.trustCon(mcm.motionIdA)}}"/></animateMotion>',
       scope: {
         motionId: '@motionId',
       },
@@ -95,8 +95,8 @@
 
   Controller.$inject = [];
   PointController.$inject = [];
-  PathController.$inject = [];
-  MotionController.$inject = [];
+  PathController.$inject = ['$sce'];
+  MotionController.$inject = ['$sce'];
   /* @ngInject */
   function Controller() {
     var vm = this;
@@ -132,22 +132,29 @@
     }
   }
 
-  function PathController() {
+  function PathController($sce) {
     var pmp = this;
     activate();
+    pmp.trustCon = function(conn) {
+      return $sce.trustAsResourceUrl('#' + conn);
+    };
 
     function activate() {
       pmp.xfirstA = pmp.xfirst;
       pmp.yfirstA = pmp.yfirst;
       pmp.xsecondA = pmp.xsecond;
       pmp.ysecondA = pmp.ysecond;
-      vm.motionIdA = vm.motionId;
+      pmp.motionIdA = pmp.motionId;
+
     }
   }
 
-  function MotionController() {
+  function MotionController($sce) {
     var mcm = this;
     activate();
+    mcm.trustCon = function(conn) {
+      return $sce.trustAsResourceUrl('#' + conn);
+    };
 
     function activate() {
       mcm.motionIdA = mcm.motionId;

@@ -30,6 +30,9 @@ angular.module('app.controllers', [])
     $scope.bases = [];
     $scope.points = [];
     $scope.patnIds = [];
+    $scope.pathId = 0;
+    $scope.pathIds = [];
+    $scope.pathIds.push($scope.pathId);
 
     $scope.bases.push(count);
 
@@ -69,12 +72,8 @@ angular.module('app.controllers', [])
     }
     $scope.prevxcorfirst = 0;
     $scope.prevycorfirst = 0;
-    $scope.pathId = 0;
-    $scope.pathIds.push($scope.pathId);
 
     function createLocationPoint(newLocation) {
-      console.log($scope.prevxcorfirst);
-      console.log($scope.prevycorfirst);
       var style = newLocation;
       $scope.points.push(style);
       var inject = {};
@@ -90,6 +89,7 @@ angular.module('app.controllers', [])
         inject.xsecond = newLocation.xcor;
         inject.ysecond = newLocation.ycor;
         $scope.pathId++;
+        console.log($scope.pathId);
         $scope.pathIds.push($scope.pathId);
 
       }

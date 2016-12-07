@@ -11,10 +11,11 @@
   <circle r="10"cy="197" cx="630" fill="#f33" />
   <circle r="10" cy="152" cx="259" fill="#f33" /> -->
     <circle r="10" cy="522" cx="522" fill="#f33" />
-    <g ng-repeat = "motion in motions track by $index" ng-show="{{show}}" create-motion motionId="motion{{pathId}}"></g>
-    <g ng-repeat = "path in paths track by $index" create-path xfirst="{{path.xfirst}}" yfirst="{{path.yfirst}}"
-       xsecond="{{path.xsecond}}" ysecond="{{path.ysecond}}" motionId="motion{{pathId}}">
+    <!--<g ng-repeat = "pathId in pathIds track by $index" ng-show="{{show}}" create-motion motionId="{{pathId}}"></g> -->
+    <!-- Define the motion path animation -->
 
+    <g ng-repeat = "path in paths track by $index" create-path xfirst="{{path.xfirst}}" yfirst="{{path.yfirst}}"
+       xsecond="{{path.xsecond}}" ysecond="{{path.ysecond}}" motionId="{{pathId}}">
       </g>
     <g ng-repeat="point in points track by $index" point-location xcor="{{point.xcor}}" ycor="{{point.ycor}}" ></g>
 
@@ -22,6 +23,7 @@
 
   <button class="button icon-left ion-plus-round button-large button-balanced" id="baseButton" ng-click="openModal(1)">New Base</button>
   <button class="button icon-left ion-plus-round button-large button-royal" id="planButton" ng-click="openModal(2)">Create Flight Plan</button>
+  <button class="button icon-left ion-paper-airplane button-large button-assertive" id="startButton" ng-click="startPath()">Start flight plan</button>
 </ion-content>
 
 </ion-view>
