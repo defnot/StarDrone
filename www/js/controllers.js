@@ -33,6 +33,33 @@ angular.module('app.controllers', [])
     $scope.pathId = 0;
     $scope.pathIds = [];
     $scope.pathIds.push($scope.pathId);
+    $scope.pathEl = '<path id="theMotionPath" d="M522 522,';
+    $scope.start = function() {
+
+      console.log('clicked that shit');
+      var svg = document.getElementById('svgEl');
+      $scope.pathEl += '" stroke-width="5px" stroke="green" fill="none"/>\n';
+      console.log($scope.pathEl);
+      setTimeout(function() {
+        svg.innerHTML = svg.innerHTML +
+          $scope.pathEl + '';
+      }, 3000);
+
+      setTimeout(function() {
+        svg.innerHTML = svg.innerHTML +
+          '<circle cx="" cy="" r="5" fill="red">\n' +
+          '<animateMotion dur="20s" repeatCount="indefinite">\n' +
+          '<mpath xlink:href="#theMotionPath"/>\n' +
+          '</animateMotion>\n' +
+          '</circle>';
+      }, 5000);
+
+      setTimeout(function() {
+        svg.removeChild(document.getElementById("theMotionPath"));
+      }, 20000);
+
+
+    }
 
     $scope.bases.push(count);
 
@@ -82,21 +109,23 @@ angular.module('app.controllers', [])
         inject.yfirst = 522;
         inject.xsecond = $scope.points[0].xcor;
         inject.ysecond = $scope.points[0].ycor;
+        $scope.pathEl += ' ' + newLocation.ycor + ' ' + newLocation.xcor + ',';
       } else if ($scope.points.length > 1) {
 
         inject.xfirst = $scope.prevycorfirst;
         inject.yfirst = $scope.prevxcorfirst;
         inject.xsecond = newLocation.xcor;
         inject.ysecond = newLocation.ycor;
+        $scope.pathEl += ' ' + newLocation.ycor + ' ' + newLocation.xcor + ',';
+        console.log($scope.pathEl);
         $scope.pathId++;
-        console.log($scope.pathId);
         $scope.pathIds.push($scope.pathId);
-
       }
       $scope.paths.push(inject);
 
       $scope.prevxcorfirst = newLocation.xcor;
       $scope.prevycorfirst = newLocation.ycor;
+      console.log($scope.pathId);
     }
   }
 ])
