@@ -10,10 +10,10 @@ angular.module('app.controllers', [])
   }
 ])
 
-.controller('cartTabDefaultPageCtrl', ['$scope', '$stateParams', '$ionicModal', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('cartTabDefaultPageCtrl', ['$scope', '$stateParams', '$ionicModal', '$http', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
   // You can include any angular dependencies as parameters for this function
   // TIP: Access Route Parameters for your page via $stateParams.parameterName
-  function($scope, $stateParams, $ionicModal) {
+  function($scope, $stateParams, $ionicModal, $http) {
     var count = {
       top: '20px',
       bottom: '20px',
@@ -57,6 +57,12 @@ angular.module('app.controllers', [])
       setTimeout(function() {
         svg.removeChild(document.getElementById("theMotionPath"));
       }, 20000);
+
+      $http.post("http://localhost:3030/takeoff", {
+        command: "takeOff"
+      }).then(function(data) {
+        console.log(data);
+      });
 
 
     }
