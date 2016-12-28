@@ -1,29 +1,31 @@
 angular.module('app.controllers', [])
 
-.controller('cameraTabDefaultPageCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('cameraTabDefaultPageCtrl', ['$scope', '$stateParams', '$rootScope', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
   // You can include any angular dependencies as parameters for this function
   // TIP: Access Route Parameters for your page via $stateParams.parameterName
-  function($scope, $stateParams) {
-    function btnClick() {
+  function($scope, $stateParams, $rootScope) {
 
+    $scope.callDrone = function() {
+      console.log('bitch i called the drone');
+      $rootScope.show = "true";
+      console.log($rootScope.show);
     }
+
   }
 ])
 
-.controller('cartTabDefaultPageCtrl', ['$scope', '$stateParams', '$ionicModal', '$http', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('cartTabDefaultPageCtrl', ['$scope', '$stateParams', '$ionicModal', '$rootScope', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
   // You can include any angular dependencies as parameters for this function
   // TIP: Access Route Parameters for your page via $stateParams.parameterName
-  function($scope, $stateParams, $ionicModal, $http) {
+  function($scope, $stateParams, $ionicModal, $rootScope) {
+    /*
     var count = {
       top: '20px',
       bottom: '20px',
       left: '20px',
       right: '20px'
     };
-    $scope.show = false;
-    $scope.startPath = function() {
-      $scope.show = true;
-    }
+    */
     $scope.motionCount = 0;
     $scope.keepPoints = [];
     $scope.paths = [];
@@ -32,31 +34,37 @@ angular.module('app.controllers', [])
     $scope.patnIds = [];
     $scope.pathId = 0;
     $scope.pathIds = [];
+    $scope.coordinates = [];
+    $scope.y = 0;
+    $scope.x = 0;
+    $scope.y1 = 0;
+    $scope.x1 = 0;
     $scope.pathIds.push($scope.pathId);
     $scope.pathEl = '<path id="theMotionPath" d="M522 522,';
+
     $scope.start = function() {
+      if ($scope.coordinates.length >= 2) {
+        var removed = $scope.coordinates.splice($scope.coordinates.length - 4, 4);
+        $scope.y = removed[0];
+        $scope.x = removed[1];
+        $scope.y1 = removed[2];
+        $scope.x1 = removed[3];
+
+        console.log($scope.y);
+        console.log($scope.x);
+        console.log($scope.y1);
+        console.log($scope.x1);
+      }
 
       console.log('clicked that shit');
       var svg = document.getElementById('svgEl');
-      $scope.pathEl += '" stroke-width="5px" stroke="green" fill="none"/>\n';
-      console.log($scope.pathEl);
-      setTimeout(function() {
-        svg.innerHTML = svg.innerHTML +
-          $scope.pathEl + '';
-      }, 3000);
-
-      setTimeout(function() {
-        svg.innerHTML = svg.innerHTML +
-          '<circle cx="" cy="" r="5" fill="red">\n' +
-          '<animateMotion dur="20s" repeatCount="indefinite">\n' +
-          '<mpath xlink:href="#theMotionPath"/>\n' +
-          '</animateMotion>\n' +
-          '</circle>';
-      }, 5000);
-
-      setTimeout(function() {
-        svg.removeChild(document.getElementById("theMotionPath"));
-      }, 20000);
+      $scope.pathEl += '" stroke-width="5px" stroke="green" fill="none"/>\n' +
+        '<circle cx="" cy="" r="5" fill="red">\n' +
+        '<animateMotion dur="190s" repeatCount="indefinite">\n' +
+        '<mpath xlink:href="#theMotionPath"/>\n' +
+        '</animateMotion>\n' +
+        '</circle>';
+      $scope.showAnimation = "defined";
 
       $http.post("http://localhost:3030/takeoff", {
         command: "takeOff"
@@ -64,10 +72,15 @@ angular.module('app.controllers', [])
         console.log(data);
       });
 
+      setTimeout(function() {
+        svg.removeChild(document.getElementById("theMotionPath"));
+      }, 40000);
+
+
 
     }
 
-    $scope.bases.push(count);
+    //$scope.bases.push(count);
 
     $ionicModal.fromTemplateUrl('modal.html', {
       id: '1',
@@ -99,6 +112,7 @@ angular.module('app.controllers', [])
     $scope.createLocationPoint = createLocationPoint;
 
     function createBase(newBase) {
+      console.log($rootScope.show);
       newBase.top = parseInt(newBase.top);
       var style = newBase;
       $scope.bases.push(style);
@@ -110,6 +124,8 @@ angular.module('app.controllers', [])
       var style = newLocation;
       $scope.points.push(style);
       var inject = {};
+      $scope.coordinates.push(newLocation.ycor);
+      $scope.coordinates.push(newLocation.xcor);
       if ($scope.points.length == 1) {
         inject.xfirst = 522;
         inject.yfirst = 522;
@@ -131,7 +147,8 @@ angular.module('app.controllers', [])
 
       $scope.prevxcorfirst = newLocation.xcor;
       $scope.prevycorfirst = newLocation.ycor;
-      console.log($scope.pathId);
+
+
     }
   }
 ])

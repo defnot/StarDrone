@@ -1,28 +1,47 @@
-<html>
-    <head></head>
-    <body>
-        <svg>
-            <circle id="point" r="10" fill="#f33" />
-        </svg>
+
     <ion-view title="Flight plan" id="page3">
         <ion-content padding="true" class="has-header">
+            <img src="img/tower-pic-sm.png" class="greatAbsolute" />
           <div>
             <div ng-repeat="base in bases track by $index" flight-plan top="{{base.top}}" bottom="{{base.bottom}}" left="{{base.left}}" right="{{base.right}}"></div>
           </div>
 
         <svg class="svgLegit" id="svgEl" width="900" height="800" viewbox = "0 0 900 800">
-
+            <style>
+                @media (max-width: 1200px) {
+                  #drone {
+                    cx:320;
+                  }
+                }
+            </style>
           <!--<path class="key-anim1" fill="none" stroke-width="5px" stroke="rgba(200,10,10,0.5)" d="M529 380,197 630" /> -->
             <circle id="drone" r="10" cy="522" cx="522" fill="#f33" />
             <!--<g ng-repeat = "pathId in pathIds track by $index" ng-show="{{show}}" create-motion motionId="{{pathId}}"></g> -->
             <!-- Define the motion path animation -->
-            <circle class="drr" r="10" cy="522" cx="545" fill="#f33" />
+
             <g ng-repeat = "path in paths track by $index" create-path xfirst="{{path.xfirst}}" yfirst="{{path.yfirst}}"
                xsecond="{{path.xsecond}}" ysecond="{{path.ysecond}}" xmon="{{pathId}}">
               </g>
             <g ng-repeat="point in points track by $index" point-location xcor="{{point.xcor}}" ycor="{{point.ycor}}" ></g>
 
+            <g ng-show="show != undefined">
+                <path d="M{{y1}} {{x1}}, 600 522" stroke-width="5px" stroke="black" fill="transparent" id="person"/>
+                <circle cx="" cy="" r="5" fill="red">
+
+                <!-- Define the motion path animation -->
+                    <animateMotion dur="16s" repeatCount="indefinite">
+                        <mpath xlink:href="#person"/>
+                    </animateMotion>
+
+               </circle>
+                <circle class="drr" r="5" cy="522" cx="600" fill="#f33" />
+            </g>
+            <g>
+                <g compile="pathEl"></g>
+            </g>
+
         </svg>
+
 
           <button class="button icon-left ion-plus-round button-large button-balanced" id="baseButton" ng-click="openModal(1)">New Base</button>
           <button class="button icon-left ion-plus-round button-large button-royal" id="planButton" ng-click="openModal(2)">Create Flight Plan</button>
@@ -77,7 +96,3 @@
                 </ion-content>
               </ion-modal-view>
             </script>
-
-
-    </body>
-</html>
