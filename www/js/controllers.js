@@ -14,10 +14,10 @@ angular.module('app.controllers', [])
   }
 ])
 
-.controller('cartTabDefaultPageCtrl', ['$scope', '$stateParams', '$ionicModal', '$rootScope', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('cartTabDefaultPageCtrl', ['$scope', '$stateParams', '$ionicModal', '$rootScope', '$http', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
   // You can include any angular dependencies as parameters for this function
   // TIP: Access Route Parameters for your page via $stateParams.parameterName
-  function($scope, $stateParams, $ionicModal, $rootScope) {
+  function($scope, $stateParams, $ionicModal, $rootScope, $http) {
     /*
     var count = {
       top: '20px',
@@ -40,9 +40,10 @@ angular.module('app.controllers', [])
     $scope.y1 = 0;
     $scope.x1 = 0;
     $scope.pathIds.push($scope.pathId);
-    $scope.pathEl = '<path id="theMotionPath" d="M522 522,';
+    $scope.pathEl = '<path id="theMotionPath" d="M320 522,';
 
     $scope.start = function() {
+	/*
       if ($scope.coordinates.length >= 2) {
         var removed = $scope.coordinates.splice($scope.coordinates.length - 4, 4);
         $scope.y = removed[0];
@@ -54,30 +55,45 @@ angular.module('app.controllers', [])
         console.log($scope.x);
         console.log($scope.y1);
         console.log($scope.x1);
-      }
+      } */
 
       console.log('clicked that shit');
       var svg = document.getElementById('svgEl');
+	   $scope.pathEl += '" stroke-width="5px" stroke="blue" fill="none"/>\n';
+      console.log($scope.pathEl);
+      setTimeout(function() {
+        svg.innerHTML = svg.innerHTML +
+          $scope.pathEl + '';
+          svg.innerHTML = svg.innerHTML +
+          '<circle cx="" cy="" r="12" fill="red">\n' +
+          '<animateMotion dur="250s">\n' +
+          '<mpath xlink:href="#theMotionPath"/>\n' +
+          '</animateMotion>\n' +
+          '</circle>';
+      }, 300);
+
+	  /*
       $scope.pathEl += '" stroke-width="5px" stroke="green" fill="none"/>\n' +
         '<circle cx="" cy="" r="5" fill="red">\n' +
         '<animateMotion dur="190s" repeatCount="indefinite">\n' +
         '<mpath xlink:href="#theMotionPath"/>\n' +
         '</animateMotion>\n' +
         '</circle>';
-      $scope.showAnimation = "defined";
-
+		
+      $scope.showAnimation = "defined"; */
+	  	
       $http.post("http://localhost:3030/takeoff", {
         command: "takeOff"
       }).then(function(data) {
         console.log(data);
-      });
-
-      setTimeout(function() {
+      }); 
+        
+    }
+    
+    $scope.stop = function() {
+        var svg = document.getElementById('svgEl');
         svg.removeChild(document.getElementById("theMotionPath"));
-      }, 40000);
-
-
-
+        
     }
 
     //$scope.bases.push(count);
@@ -123,11 +139,15 @@ angular.module('app.controllers', [])
     function createLocationPoint(newLocation) {
       var style = newLocation;
       $scope.points.push(style);
+	  $scope.yput = newLocation.ycor;
+	  $scope.xput = newLocation.xcor;
       var inject = {};
+	  /*
       $scope.coordinates.push(newLocation.ycor);
       $scope.coordinates.push(newLocation.xcor);
+	  */
       if ($scope.points.length == 1) {
-        inject.xfirst = 522;
+        inject.xfirst = 320;
         inject.yfirst = 522;
         inject.xsecond = $scope.points[0].xcor;
         inject.ysecond = $scope.points[0].ycor;
